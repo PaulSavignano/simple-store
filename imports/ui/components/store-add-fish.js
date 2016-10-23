@@ -29,3 +29,7 @@ export class StoreAddFish extends Component {
     )
   }
 }
+
+StoreAddFish.propTypes = {
+  addFish: React.PropTypes.func.isRequired,
+}

@@ -17,3 +17,7 @@ export const StoreHeader = (props) => {
     </header>
   )
 }
+
+StoreHeader.propTypes = {
+  tagline: React.PropTypes.string.isRequired,
+}

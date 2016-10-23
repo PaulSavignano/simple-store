@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { formatPrice } from '../../modules/store-helpers'
 
-export class StoreFish extends Component {
+export class StoreProducts extends Component {
   render() {
     const { details, index } = this.props
     const isAvailable = details.status === 'available'
@@ -23,4 +23,10 @@ export class StoreFish extends Component {
       </li>
     )
   }
+}
+
+StoreFish.propTypes = {
+  details: React.PropTypes.object.isRequired,
+  index: React.PropTypes.string.isRequired,
+  addToOrder: React.PropTypes.func.isRequired,
 }
