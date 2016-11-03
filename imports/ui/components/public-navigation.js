@@ -5,12 +5,12 @@ import { Nav, NavItem } from 'react-bootstrap';
 export const PublicNavigation = () => (
   <div>
     <Nav>
-      <IndexLinkContainer to="/products">
+      <LinkContainer to="/products">
         <NavItem eventKey={ 1 } href="/products">Products</NavItem>
-      </IndexLinkContainer>
-      <IndexLinkContainer to="/cart">
+      </LinkContainer>
+      <LinkContainer to="/cart">
         <NavItem eventKey={ 2 } href="/cart">Cart</NavItem>
-      </IndexLinkContainer>
+      </LinkContainer>
     </Nav>
     <Nav pullRight>
       <LinkContainer to="signup">

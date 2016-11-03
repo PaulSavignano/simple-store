@@ -12,7 +12,7 @@ import { ResetPassword } from '../../ui/pages/reset-password';
 import { Signup } from '../../ui/pages/signup';
 import { StoreProductsPage } from '../../ui/pages/store-products-page'
 import { StoreCartPage } from '../../ui/pages/store-cart-page'
-import { StoreInventoryPage } from '../../ui/pages/store-cart-page'
+import { StoreInventoryPage } from '../../ui/pages/store-inventory-page'
 
 const requireAuth = (nextState, replace) => {
   if (!Meteor.loggingIn() && !Meteor.userId()) {

@@ -1,92 +1,46 @@
-import React, { Component } from 'react'
-import { StoreAddFish } from './store-add-fish'
-import base from '../../modules/store-base'
+import React from 'react'
+import { Col, Thumbnail, Button } from 'react-bootstrap'
+import { Bert } from 'meteor/themeteorchef:bert'
+import { insertProduct } from '../../api/products/methods.js'
 
-export class StoreInventory extends Component {
-  constructor() {
-    super()
-    this.renderInventory = this.renderInventory.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.state = {
-      uid: null,
-      owner: null,
+const handleInsertProduct = (event) => {
+  event.preventDefault()
+  const form = document.querySelector('[name="product-form"]')
+  const product = {
+    name: form.querySelector('[name="name"]'),
+    price: form.querySelector('[name="price"]'),
+    status: form.querySelector('[name="status"]'),
+    desc: form.querySelector('[name="desc"]'),
+    image: form.querySelector('[name="image"]'),
+  }
+  insertProduct.call({
+    product,
+  }, (error) => {
+    if (error) {
+      Bert.alert(error.reason, 'danger');
+    } else {
+      event.target.value = '';
+      Bert.alert('Product added!', 'success');
     }
-  }
-  handleChange(e, key) {
-    e.preventDefault()
-    const fish = this.props.fishes[key]
-    const updatedFish = {
-      ...fish,
-      [e.target.name]: e.target.value,
-    }
-    this.props.updateFish(key, updatedFish)
-  }
+  });
+};
 
-  renderInventory(key) {
-    const fish = this.props.fishes[key]
-    return (
-      <div className="fish-edit" key={key}>
-        <input
-          type="text"
-          name="name"
-          value={fish.name}
-          placeholder="Fish name"
-          onChange={(e) => this.handleChange(e, key)}
-        />
-        <input
-          type="text"
-          name="price"
-          value={fish.price}
-          placeholder="Fish price"
-          onChange={(e) => this.handleChange(e, key)}
-        />
-        <select
-          type="text"
-          name="status"
-          value={fish.status}
-          placeholder="Fish status"
-          onChange={(e) => this.handleChange(e, key)}
-        >
-          <option value="available">Fresh!</option>
-          <option value="unavailable">Sold Out!</option>
-        </select>
-        <textarea
-          type="text"
-          name="desc"
-          value={fish.desc}
-          placeholder="Fish desc"
-          onChange={(e) => this.handleChange(e, key)}
-        >
-
-        </textarea>
-        <input
-          type="text"
-          name="image"
-          value={fish.image}
-          placeholder="Fish image"
-          onChange={(e) => this.handleChange(e, key)}
-        />
-        <button onClick={() => this.props.removeFish(key)}>Remove Fish</button>
-      </div>
-    )
-  }
-  render() {
-    return (
-      <div>
-        <h2>Inventory</h2>
-        {Object.keys(this.props.fishes).map(this.renderInventory)}
-        <StoreAddFish addFish={this.props.addFish }/>
-        <button onClick={ this.props.loadSamples }>Load Sample Fishes</button>
-      </div>
-    )
-  }
-}
-
-StoreInventory.propTypes = {
-  fishes: React.PropTypes.object.isRequired,
-  updateFish: React.PropTypes.func.isRequired,
-  removeFish: React.PropTypes.func.isRequired,
-  addFish: React.PropTypes.func.isRequired,
-  loadSamples: React.PropTypes.func.isRequired,
-  storeId: React.PropTypes.string.isRequired,
+export const StoreInventory = ({ product }) => {
+  console.log(product)
+  return (
+    <form name="product-form" className="fish-edit" onSubmit={ handleInsertProduct }>
+      <Col xs={ 3 }>
+        <Thumbnail src={ product.image }>
+        </Thumbnail>
+      </Col>
+      <Col xs={ 9 }>
+        <h3>{ product.name }</h3>
+        <p>{ product.description }</p>
+        <p className="pull-right">
+          <Button bsStyle="success">Update</Button>
+          <Button bsStyle="danger">Remove</Button>
+        </p>
+      </Col>
+    </form>
+  )
 }

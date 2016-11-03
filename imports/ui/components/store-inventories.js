@@ -1,12 +1,12 @@
 import React from 'react'
 import { ListGroup, Alert } from 'react-bootstrap'
-import { StoreProduct } from './store-product'
+import { StoreInventory } from './store-inventory'
 
-export const StoreProducts = ({ products }) => (
+export const StoreInventories = ({ products }) => (
   products.length > 0 ?
   <ListGroup>
     {products.map((product) => (
-      <StoreProduct key={ product._id } product={ product } />
+      <StoreInventory key={ product._id } product={ product } />
     ))}
   </ListGroup> :
   <Alert bsStyle="warning">No products yet.</Alert>
